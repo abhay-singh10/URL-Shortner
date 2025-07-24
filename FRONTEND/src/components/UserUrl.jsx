@@ -79,14 +79,21 @@ const UserUrl = () => {
                 </td>
                 <td className="px-6 py-4">
                   <div className="text-sm">
-                    <a 
-                      href={`http://localhost:3000/${url.short_url}`} 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className="text-blue-600 hover:text-blue-900 hover:underline"
-                    >
-                      {`localhost:3000/${url.short_url}`}
-                    </a>
+                    {(() => {
+                      const BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:3000";
+                      const displayUrl = `${BASE_URL.replace(/^https?:\/\//, "")}/${url.short_url}`;
+                      const fullUrl = `${BASE_URL}/${url.short_url}`;
+                      return (
+                        <a 
+                          href={fullUrl}
+                          target="_blank" 
+                          rel="noopener noreferrer"
+                          className="text-blue-600 hover:text-blue-900 hover:underline"
+                        >
+                          {displayUrl}
+                        </a>
+                      );
+                    })()}
                   </div>
                 </td>
                 <td className="px-6 py-4">
