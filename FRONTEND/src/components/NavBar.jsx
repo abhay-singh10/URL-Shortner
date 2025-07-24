@@ -19,20 +19,12 @@ const Navbar = () => {
           {/* Right side - Auth buttons */}
           <div className="flex items-center space-x-4">
             {!isAuthenticated ? (
-              <>
-                <Link
-                  to="/auth"
-                  className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md text-sm font-medium"
-                >
-                  Login
-                </Link>
-                <Link
-                  to="/auth"
-                  className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-md text-sm font-medium"
-                >
-                  Register
-                </Link>
-              </>
+              <Link
+                to="/auth"
+                className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md text-sm font-medium"
+              >
+                Login
+              </Link>
             ) : (
               <Link
                 to="/dashboard"
