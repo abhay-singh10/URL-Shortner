@@ -5,6 +5,7 @@ import { RouterProvider, createRouter } from '@tanstack/react-router'
 import { routeTree } from './routing/routeTree.js'
 import store from './store/store.js'
 import { Provider } from 'react-redux'
+import { checkAuth } from './utils/helper';
 
 export const queryClient = new QueryClient()
 const router = createRouter({
@@ -15,10 +16,13 @@ const router = createRouter({
   }
 })
 
-createRoot(document.getElementById('root')).render(
-  <Provider store={store}>
-    <QueryClientProvider client={queryClient}>
-      <RouterProvider router={router} />
-    </QueryClientProvider>
-  </Provider>
-)
+(async () => {
+  await checkAuth({ context: { queryClient, store } });
+  createRoot(document.getElementById('root')).render(
+    <Provider store={store}>
+      <QueryClientProvider client={queryClient}>
+        <RouterProvider router={router} />
+      </QueryClientProvider>
+    </Provider>
+  );
+})();
