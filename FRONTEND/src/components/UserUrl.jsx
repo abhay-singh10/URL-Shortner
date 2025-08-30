@@ -16,7 +16,7 @@ const UserUrl = () => {
   const handleCopy = (url, id) => {
     navigator.clipboard.writeText(url);
     setCopiedId(id);
-    setTimeout(() => setCopiedId(null), 2000);
+    setTimeout(() => setCopiedId(null), 3000);
   };
 
   // Reliable cross-origin PNG download using Blob

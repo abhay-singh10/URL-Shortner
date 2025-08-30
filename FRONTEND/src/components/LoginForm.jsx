@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { loginUser } from '../api/user.api';
-import {useDispatch, useSelector} from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { login } from '../store/slice/authSlice.js';
 import { useNavigate } from '@tanstack/react-router';
 
@@ -21,7 +21,7 @@ const LoginForm = ({ state }) => {
         try {
             const data = await loginUser(password, email);
             dispatch(login(data.user))
-            navigate({to:"/dashboard"})
+            navigate({ to: "/dashboard" })
             setLoading(false);
             console.log("signin success")
         } catch (err) {
@@ -73,7 +73,10 @@ const LoginForm = ({ state }) => {
 
                 <div className="flex items-center justify-between">
                     <button
-                        className={`bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
+                        className={`w-full bg-blue-500 text-white font-bold py-2 px-4 rounded focus:outline-none 
+              focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 
+              transition-colors duration-200 hover:bg-blue-600 cursor-pointer 
+              ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
                         type="submit"
                         onClick={handleSubmit}
                         disabled={loading}

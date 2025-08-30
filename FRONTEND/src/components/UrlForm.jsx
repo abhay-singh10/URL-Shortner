@@ -51,7 +51,7 @@ const UrlForm = () => {
         const u = new URL(qrUrl)
         const slug = u.pathname.split("/").pop() || "link"
         filename = `qr-${slug}.png`
-      } catch {}
+      } catch { }
       a.download = filename
       document.body.appendChild(a)
       a.click()
@@ -81,9 +81,10 @@ const UrlForm = () => {
       </div>
       <button
         onClick={handleSubmit}
-        type="submit"
-        className="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50"
-      >Generate
+        type="button"
+        className="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 cursor-pointer transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50"
+      >
+        Generate
       </button>
       {error && (
         <div className="mt-4 p-3 bg-red-100 text-red-700 rounded-md">
@@ -117,9 +118,9 @@ const UrlForm = () => {
             />
             <button
               onClick={handleCopy}
-              className={`px-4 py-2 rounded-r-md transition-colors duration-200 ${copied
+              className={`px-4 py-2 rounded-r-md cursor-pointer transition-colors duration-200 ${copied
                 ? 'bg-green-500 text-white hover:bg-green-600'
-                : 'bg-gray-200 hover:bg-gray-300'
+                : 'bg-blue-500 text-white hover:bg-blue-600'
                 }`}
             >
               {copied ? 'Copied!' : 'Copy'}
@@ -133,7 +134,7 @@ const UrlForm = () => {
           <h3 className="text-md font-semibold mb-2">QR code:</h3>
           <img src={qrUrl} alt="QR code" width={256} height={256} />
           <div className="mt-2">
-            <button 
+            <button
               onClick={handleDownloadQR}
               className="text-blue-600 underline hover:text-blue-700 cursor-pointer"
             >
