@@ -1,55 +1,36 @@
-# URLMon Frontend (React + Vite)
+# URLMon — URL Shortener (MERN)
 
-SPA for creating and managing short URLs with auth, dashboard, and QR tools.
+A full-stack URL shortener with authentication, personal dashboards, and on-demand QR code generation.
 
-Tech
-- React (Vite), Redux Toolkit
-- TanStack Router and Query
-- Tailwind CSS
-- Axios with credentials
+Live demo
+- https://urlmon.vercel.app/
 
-## Setup
+What it does
+- Shorten any URL and redirect via GET /:slug
+- Register/login with httpOnly JWT cookies
+- Authenticated users can:
+  - Choose a custom slug
+  - View a dashboard of their links with click counts
+  - Copy links, preview QR, and download QR PNGs
+- Generate QR codes on the fly with size, margin, color, and error-correction options
 
-Environment (.env)
-```
-VITE_API_URL=http://localhost:3000
-```
+Tech stack
+- Frontend: React (Vite), Redux Toolkit, TanStack Router/Query, Tailwind CSS
+- Backend: Node.js, Express, MongoDB (Mongoose), JWT cookies, QRCode
+- Deployment: Vercel-ready SPA rewrites, CORS + cookies for cross-origin auth
 
-Install & run
-```
-cd FRONTEND
-npm install
-npm run dev
-```
-App: http://localhost:5173
+Monorepo layout
+- BACKEND/ — Express REST API (details in BACKEND/README.md)
+- FRONTEND/ — React SPA (details in FRONTEND/README.md)
 
-Build
-```
-npm run build
-npm run preview
-```
+Quick start
+- Backend: see BACKEND/README.md (env, run, API)
+- Frontend: see FRONTEND/README.md (env, run, build)
 
-## App Overview
+Security & ops (at a glance)
+- Use strong secrets and secure cookies in production (SameSite=None, secure)
+- Configure allowed origins for CORS
+- Validate inputs and consider rate limiting
 
-- Auth bootstrap: src/utils/helper.js + src/main.jsx
-- Routing: src/routing/routeTree.js
-  - Public: Home (/)
-  - Auth gate: /auth (redirects authed users to /dashboard)
-  - Private: /dashboard (requires auth; redirects to /auth)
-- State: Redux slice at src/store/slice/authSlice.js
-- API client: src/utils/axiosInstance.js (withCredentials + error normalization)
-
-Key UI
-- Home: src/pages/HomePage.jsx
-  - URL creator: src/components/UrlForm.jsx (supports custom slug when authed)
-- Auth: src/pages/AuthPage.jsx
-  - Forms: LoginForm.jsx, RegisterForm.jsx
-- Dashboard: src/pages/DashboardPage.jsx
-  - UserUrl.jsx (copy links, preview/download QR)
-- Layout: src/RootLayout.jsx with NavBar.jsx
-
-## Deployment
-
-- SPA rewrite for Vercel: vercel.json
-- Set VITE_API_URL to your backend origin
-- If served over HTTPS with cross-origin API, backend cookies must be SameSite=None and
+License
+- MIT
