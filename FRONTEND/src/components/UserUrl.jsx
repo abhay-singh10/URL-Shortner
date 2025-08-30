@@ -133,23 +133,23 @@ const UserUrl = () => {
                     <button
                       onClick={() => handleCopy(shortHref, item._id)}
                       className={`inline-flex items-center px-3 py-1.5 border border-transparent text-xs font-medium rounded-md shadow-sm ${copiedId === item._id
-                        ? "bg-green-600 text-white hover:bg-green-700"
-                        : "bg-blue-600 text-white hover:bg-blue-700"
-                        } focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200`}
+                          ? "bg-green-600 text-white hover:bg-green-700"
+                          : "bg-blue-600 text-white hover:bg-blue-700"
+                        } cursor-pointer focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200`}
                     >
                       {copiedId === item._id ? "Copied!" : "Copy URL"}
                     </button>
 
                     <button
                       onClick={() => handleDownloadQR(item.short_url, 256)}
-                      className="inline-flex items-center px-3 py-1.5 text-xs font-medium rounded-md border shadow-sm bg-gray-100 hover:bg-gray-200 text-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                      className="inline-flex items-center px-3 py-1.5 text-xs font-medium rounded-md border shadow-sm bg-gray-100 hover:bg-gray-200 hover:shadow text-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 cursor-pointer transition-colors duration-200"
                     >
                       Download QR
                     </button>
 
                     <button
                       onClick={() => setPreviewId((prev) => (prev === item._id ? null : item._id))}
-                      className="inline-flex items-center px-3 py-1.5 text-xs font-medium rounded-md border shadow-sm bg-white hover:bg-gray-50 text-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                      className="inline-flex items-center px-3 py-1.5 text-xs font-medium rounded-md border shadow-sm bg-white hover:bg-gray-50 hover:shadow text-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 cursor-pointer transition-colors duration-200"
                     >
                       {previewId === item._id ? "Hide QR" : "Preview QR"}
                     </button>
