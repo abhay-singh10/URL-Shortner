@@ -4,13 +4,18 @@ import wrapAsync from "../utils/tryCatchWrapper.js"
 
 export const createShortUrl = wrapAsync(async (req,res)=>{
     const data = req.body
-    let shortUrl
+    let shortUrl, qrUrl    
     if(req.user){
         shortUrl = await createShortUrlWithUser(data.url,req.user._id,data.slug)
     }else{  
         shortUrl = await createShortUrlWithoutUser(data.url)
     }
-    res.status(200).json({shortUrl : process.env.APP_URL + shortUrl})
+    const base = process.env.APP_URL || "http://localhost:3000/";
+    qrUrl = `${req.protocol}://${req.get("host")}/api/qr/${shortUrl}?size=256`;
+    res.status(200).json({
+        shortUrl : base + shortUrl,
+        qrUrl
+    })
 })
 
 
@@ -22,7 +27,12 @@ export const redirectFromShortUrl = wrapAsync(async (req,res)=>{
 })
 
 export const createCustomShortUrl = wrapAsync(async (req,res)=>{
-    const {url,slug} = req.body
+    const {url,customUrl} = req.body
     const shortUrl = await createShortUrlWithoutUser(url,customUrl)
-    res.status(200).json({shortUrl : process.env.APP_URL + shortUrl})
+    const base = process.env.APP_URL || "http://localhost:3000/";
+    const qrUrl = `${req.protocol}://${req.get("host")}/api/qr/${shortUrl}?size=256`;
+    res.status(200).json({
+        shortUrl : base + shortUrl,
+        qrUrl
+    })
 })

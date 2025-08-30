@@ -4,6 +4,7 @@ import connectDB from "./src/config/monogo.config.js"
 import short_url from "./src/routes/short_url.route.js"
 import user_routes from "./src/routes/user.routes.js"
 import auth_routes from "./src/routes/auth.routes.js"
+import qrRoutes from "./src/routes/qrcode.route.js";
 import { redirectFromShortUrl } from "./src/controller/short_url.controller.js";
 import { errorHandler } from "./src/utils/errorHandler.js";
 import cors from "cors"
@@ -19,7 +20,7 @@ app.use(cors({
         'http://localhost:5173', // Local development URL
         'https://urlmon.vercel.app' //deployment URL
     ],
-    credentials: true // 👈 this allows cookies to be sent
+    credentials: true // this allows cookies to be sent
 }));
 
 app.use(express.json())
@@ -31,6 +32,7 @@ app.use(attachUser)
 app.use("/api/user",user_routes)
 app.use("/api/auth",auth_routes)
 app.use("/api/create",short_url)
+app.use("/api/qr", qrRoutes);
 app.get("/:id",redirectFromShortUrl)
 
 app.use(errorHandler)
