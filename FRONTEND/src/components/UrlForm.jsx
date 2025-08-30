@@ -10,7 +10,6 @@ const UrlForm = () => {
   const [copied, setCopied] = useState(false)
   const [qrUrl, setQrUrl] = useState(null)
   const [error, setError] = useState(null)
-
   const [customSlug, setCustomSlug] = useState("")
   const { isAuthenticated } = useSelector((state) => state.auth)
 
@@ -30,10 +29,38 @@ const UrlForm = () => {
     navigator.clipboard.writeText(shortUrl);
     setCopied(true);
 
-    // Reset the copied state after 2 seconds
+    // Reset the copied state after 3 seconds
     setTimeout(() => {
       setCopied(false);
-    }, 2000);
+    }, 3000);
+  }
+
+  // Download QR same way as in UserUrl (Blob + programmatic <a>)
+  const handleDownloadQR = async () => {
+    if (!qrUrl) return
+    try {
+      const res = await fetch(qrUrl, { credentials: "omit" })
+      if (!res.ok) throw new Error(`Failed to fetch QR (${res.status})`)
+      const blob = await res.blob() // image/png
+      const obj = URL.createObjectURL(blob)
+      const a = document.createElement("a")
+      a.href = obj
+      // derive a nice filename from qrUrl (slug at end of path)
+      let filename = "qr.png"
+      try {
+        const u = new URL(qrUrl)
+        const slug = u.pathname.split("/").pop() || "link"
+        filename = `qr-${slug}.png`
+      } catch {}
+      a.download = filename
+      document.body.appendChild(a)
+      a.click()
+      a.remove()
+      URL.revokeObjectURL(obj)
+    } catch (e) {
+      console.error(e)
+      alert("Could not download QR. Please try again.")
+    }
   }
 
   return (
@@ -106,12 +133,12 @@ const UrlForm = () => {
           <h3 className="text-md font-semibold mb-2">QR code:</h3>
           <img src={qrUrl} alt="QR code" width={256} height={256} />
           <div className="mt-2">
-            <a href={`${qrUrl}${qrUrl.includes('?') ? '&' : '?'}dl=1`}
-              download="qr.png"
-              className="text-blue-600 underline"
+            <button 
+              onClick={handleDownloadQR}
+              className="text-blue-600 underline hover:text-blue-700 cursor-pointer"
             >
               Download QR
-            </a>
+            </button>
           </div>
         </div>
       )}

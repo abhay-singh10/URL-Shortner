@@ -124,7 +124,7 @@ const UserUrl = () => {
                   </td>
 
                   <td className="px-6 py-4">
-                    <span className="px-1.5 inline-flex text-[10px] leading-4 font-medium rounded-full bg-blue-100 text-blue-800">
+                    <span className="px-2 inline-flex text-sm leading-5 font-medium rounded-full bg-blue-100 text-blue-800">
                       {item.clicks} {item.clicks === 1 ? "click" : "clicks"}
                     </span>
                   </td>
@@ -133,8 +133,8 @@ const UserUrl = () => {
                     <button
                       onClick={() => handleCopy(shortHref, item._id)}
                       className={`inline-flex items-center px-3 py-1.5 border border-transparent text-xs font-medium rounded-md shadow-sm ${copiedId === item._id
-                          ? "bg-green-600 text-white hover:bg-green-700"
-                          : "bg-blue-600 text-white hover:bg-blue-700"
+                        ? "bg-green-600 text-white hover:bg-green-700"
+                        : "bg-blue-600 text-white hover:bg-blue-700"
                         } focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200`}
                     >
                       {copiedId === item._id ? "Copied!" : "Copy URL"}
